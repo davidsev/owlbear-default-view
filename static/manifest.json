@@ -1,0 +1,9 @@
+{
+  "name" : "Set Default View",
+  "version" : "0.0.1",
+  "description" : "Set the default view when the room is opened",
+  "manifest_version" : 1,
+  "background_url" : "/background.html",
+  "icon" : "/icon.svg",
+  "homepage_url" : "https://github.com/davidsev/owlbear-default-view"
+}
