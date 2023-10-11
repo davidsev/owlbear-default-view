@@ -13,9 +13,6 @@ import getId from './getId';
 export class ContextMenuButton implements ContextMenuItem {
     id = getId('context-menu');
 
-    // We need the icon twice, once for images and once for shapes.
-    // What I want is a filter for a && b && (c || d), but that doesn't seem to work.
-    // Also the label's have to be different or the second one is ignored, thus the extra space.
     icons: ContextMenuIcon[] = [{
         icon: '/icon.svg',
         label: 'Set Default View',
@@ -23,21 +20,10 @@ export class ContextMenuButton implements ContextMenuItem {
             roles: ['GM'],
             max: 1,
             every: [
-                { key: 'layer', value: 'MAP' },
-                { key: ['metadata', getId('item')], operator: '!=', value: true },
-                { key: 'type', value: 'IMAGE' },
-            ],
-        },
-    }, {
-        icon: '/icon.svg',
-        label: 'Set Default View ',
-        filter: {
-            roles: ['GM'],
-            max: 1,
-            every: [
-                { key: 'layer', value: 'MAP' },
-                { key: ['metadata', getId('item')], operator: '!=', value: true },
+                { key: 'type', value: 'IMAGE', coordinator: '||' },
                 { key: 'type', value: 'SHAPE' },
+                { key: 'layer', value: 'MAP' },
+                { key: ['metadata', getId('item')], operator: '!=', value: true },
             ],
         },
     }];
