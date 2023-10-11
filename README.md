@@ -1,7 +1,7 @@
 # Set Default View
 
-An [Owlbear Rodeo](https://www.owlbear.app/) extension to set the default view when entering the room / when clicking "
-reset view"
+An [Owlbear Rodeo](https://www.owlbear.app/) extension to set the default view when entering the room / when clicking
+"reset view"
 
 ## Installation
 
