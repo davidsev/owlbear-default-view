@@ -40,7 +40,7 @@ export class ContextMenuButton implements ContextMenuItem {
 
     async onClick (context: ContextMenuContext, elementId: string): Promise<void> {
 
-        // Get the item we are working with.
+        // Get the item we're working with.
         if (context.items.length != 1)
             return;
         const targetItem = context.items[0];
@@ -69,7 +69,7 @@ export class ContextMenuButton implements ContextMenuItem {
             .layer('MAP')
             .fillOpacity(0)
             .disableHit(true)
-            .visible(false)
+            .visible(true)
             .strokeWidth(0)
             .metadata({ [getId('item')]: true })
             .name('Default View Object')
