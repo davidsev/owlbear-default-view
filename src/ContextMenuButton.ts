@@ -78,5 +78,7 @@ export class ContextMenuButton implements ContextMenuItem {
             .build();
 
         await OBR.scene.items.addItems([rect]);
+
+        OBR.notification.show('Default View has been set', 'SUCCESS');
     }
 }
