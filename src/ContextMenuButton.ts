@@ -18,17 +18,17 @@ export class ContextMenuButton implements ContextMenuItem {
         label: 'Set Default View',
         filter: {
             roles: ['GM'],
-            max: 1,
             every: [
                 { key: 'type', value: 'IMAGE', coordinator: '||' },
                 { key: 'type', value: 'SHAPE' },
-                { key: 'layer', value: 'MAP' },
+                { key: 'layer', value: 'MAP', coordinator: '||' },
+                { key: 'layer', value: 'PROP' },
                 { key: ['metadata', getId('item')], operator: '!=', value: true },
             ],
         },
     }];
 
-    private getSize (item: Item): Vector2 {
+    private getItemSize (item: Item): Vector2 {
         if (isImage(item)) {
             return { x: item.image.width, y: item.image.height };
         }
@@ -38,12 +38,31 @@ export class ContextMenuButton implements ContextMenuItem {
         throw new Error('Unknown item type');
     }
 
+    private getArea (items: Item[]): [Vector2, Vector2] {
+        let minX = Infinity;
+        let minY = Infinity;
+        let maxX = -Infinity;
+        let maxY = -Infinity;
+
+        for (const item of items) {
+            const size = this.getItemSize(item);
+            minX = Math.min(minX, item.position.x);
+            minY = Math.min(minY, item.position.y);
+            maxX = Math.max(maxX, item.position.x + size.x);
+            maxY = Math.max(maxY, item.position.y + size.y);
+        }
+
+        return [
+            { x: minX, y: minY },
+            { x: maxX - minX, y: maxY - minY },
+        ];
+    }
+
     async onClick (context: ContextMenuContext, elementId: string): Promise<void> {
 
         // Get the item we're working with.
-        if (context.items.length != 1)
+        if (!context.items.length)
             return;
-        const targetItem = context.items[0];
 
         // Work out what z-index to use.
         const allMaps = await OBR.scene.items.getItems((i: Item) => i.layer === 'MAP');
@@ -56,16 +75,14 @@ export class ContextMenuButton implements ContextMenuItem {
         }
 
         // Calculate the size of the target item.
-        const size = this.getSize(targetItem);
+        const [position, size] = this.getArea(context.items);
 
         // Make a rectangle, move it to the bottom, and attach it to the map.
         const rect = buildShape()
             .zIndex(minZ - 1)
-            .position(targetItem.position)
+            .position(position)
             .width(size.x)
             .height(size.y)
-            .scale(targetItem.scale)
-            .rotation(targetItem.rotation)
             .layer('MAP')
             .fillOpacity(0)
             .disableHit(true)
@@ -73,7 +90,6 @@ export class ContextMenuButton implements ContextMenuItem {
             .strokeWidth(0)
             .metadata({ [getId('item')]: true })
             .name('Default View Object')
-            .attachedTo(targetItem.id)
             .disableAutoZIndex(true)
             .build();
 
