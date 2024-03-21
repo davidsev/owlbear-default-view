@@ -65,8 +65,8 @@ export class ContextMenuButton implements ContextMenuItem {
             return;
 
         // Work out what z-index to use.
-        const allMaps = await OBR.scene.items.getItems((i: Item) => i.layer === 'MAP');
-        const minZ = Math.min(...allMaps.map((i) => i.zIndex));
+        const allItems = await OBR.scene.items.getItems();
+        const minZ = Math.min(...allItems.map((i) => i.zIndex));
 
         // See if we already have a default view item, and kill it.
         const existingRectangles = await OBR.scene.items.getItems((i: Item) => i.metadata.hasOwnProperty(getId('item')));
