@@ -11,6 +11,6 @@ An [Owlbear Rodeo](https://www.owlbear.app/) extension to set the default view w
 
 ## Usage
 
-See [store.md](static/store.md) for usage instructions.
+See [store.md](static_root/store.md) for usage instructions.
 
 

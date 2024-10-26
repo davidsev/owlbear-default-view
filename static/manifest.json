@@ -1,6 +1,6 @@
 {
   "name" : "Set Default View",
-  "version" : "0.0.1",
+  "version" : "DEV",
   "description" : "Set the default view when the room is opened",
   "manifest_version" : 1,
   "background_url" : "/background.html",

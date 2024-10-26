@@ -2,11 +2,11 @@
 title: Default View
 description: Set the default view when entering the room / when clicking "reset view"
 author: David Severwright
-image: https://owlbear-default-view.davidsev.co.uk/banner.webp
-icon: https://owlbear-default-view.davidsev.co.uk/icon.svg
+image: https://default-view.owlbear.davidsev.co.uk/banner.webp
+icon: https://default-view.owlbear.davidsev.co.uk/icon.svg
 tags:
     - tool
-manifest: https://owlbear-default-view.davidsev.co.uk/manifest.json
+manifest: https://default-view.owlbear.davidsev.co.uk/manifest.json
 learn-more: https://github.com/davidsev/owlbear-default-view
 ---
 
